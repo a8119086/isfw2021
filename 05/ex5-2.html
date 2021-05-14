@@ -10,10 +10,18 @@
     <script type="text/javascript" src="../osql.js"></script>
 
     <script>
+        var x = 0;
+        var timer;
+        var state = '停止中';
+
         $().ready(function () {
             doHello();
         });
         async function doHello() {
+            if (state == '停止中') {
+                timer = setInterval(doSelect, 2000);
+
+            }
             var sql = `select * from Tweets order by time desc limit 20`;
             var objects = await osql.connect(sql);
             console.log(objects);
