@@ -21,7 +21,8 @@
             document.getElementById('welcome').innerHTML = 'ようこそ' + name + 'さん';
             var html = '';
             console.log(id);
-            html = html + '<a href="update.html?userid=' + id + '">変更</a>';
+            html = html + '<a href="update.html?userid=' + id + '">変更</a><br>';
+
             html = html + '<a href="Twitter.html?name=' + name + '">Twitter</a>';
             document.getElementById('result').innerHTML = html;
         }
