@@ -12,11 +12,17 @@
     <script>
         $().ready(function () {
             Welcome();
+
         });
 
         function Welcome() {
-            var name = osql.getParam('name');
-            document.getElementById('welcome').innerHTML = 'ようこそ' + name + 'さん'
+            var name = sessionStorage.getItem('username');
+            var id = sessionStorage.getItem('userid');
+            document.getElementById('welcome').innerHTML = 'ようこそ' + name + 'さん';
+            var html = '';
+            console.log(id);
+            html = html + '<a href="update.html?userid=' + id + '">変更</a>';
+            document.getElementById('result').innerHTML = html;
         }
 
     </script>
@@ -27,6 +33,7 @@
     <h1>ユーザトップ</h1>
     <p id="welcome">ようこそxxさん</p>
     <hr>
+    <p id="result">xxxx</p>
 
 </body>
 
