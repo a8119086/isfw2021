@@ -15,7 +15,7 @@
         });
 
         async function execSelect() {
-            var sql = 'select * from Users;';
+            var sql = 'select * from Users';
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = '';
@@ -23,20 +23,28 @@
             for (var i = 0; i < objects.length; i++) {
                 html = html + '<tr>';
                 var object = objects[i];
-                html = html + '<td>' + object.id + '</td>';
                 html = html + '<td>' + object.name + '</td>';
-                html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
-                html = html + '<td>' + `<button onclick = "ButtonPressA('${object.id}')">削除</button>` + '</td>';
+                html = html + '<td>' + `<button onclick = "ButtonPressA('${object.id}')">Followする</button>` + '</td>';
+                html = html + '<td>' + `<button onclick = "ButtonPressB('${object.id}')">Followやめる</button>` + '</td>';
                 html = html + '</tr>';
             }
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
-        function ButtonPressA(userid) {
-            var sql = `delete from Users where id="${userid}"`;
+        function ButtonPressA(objectid) {
+            var userid = osql.getParam('userid');
+            console.log(objectid);
+            var sql = `insert into Follows (fromid, toid) values('${userid}', '${objectid}');`;
             var objects = osql.connect(sql);
             console.log(objects);
 
+            document.getElementById('result').innerHTML = 'OK';
+        }
+        function ButtonPressB(objectid) {
+            var sql = `delete from Follows where toid ="${objectid}"`;
+            var objects = osql.connect(sql);
+            console.log(objects);
+            document.getElementById('result').innerHTML = 'OK';
         }
 
     </script>
@@ -44,7 +52,7 @@
 </head>
 
 <body>
-    <h1>Users</h1>
+    <h1>Follows</h1>
     <p id="result">xxxx</p>
 </body>
 
